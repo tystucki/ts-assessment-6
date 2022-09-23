@@ -19,10 +19,11 @@ rollbar.error('error not working')
 app.use(express.json())
 
 app.get('/', (req, res) => {
+    rollbar.log('HTML page loaded successfully')
     res.sendFile(path.join(__dirname, '/public/index.html'))
 
 })
-app.get('/css', (req, res) => {
+app.get('/styles', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.css'))
 })
 app.get('/js', (req, res) => {
@@ -38,8 +39,8 @@ app.get('/api/robots', (req, res) => {
         rollbar.log('bots sent')
         res.status(200).send(botsArr)
     } catch (error) {
+        rollbar.error('bots did not load')
         console.log('ERROR GETTING BOTS', error)
-        rollbar.error('Erro getting bots')
         res.sendStatus(400)
     }
 })

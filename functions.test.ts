@@ -1,14 +1,29 @@
 const {shuffleArray} = require('./utils')
 
 describe('shuffleArray should', () => {
-    test('check that shuffleArray returns an array', () => {
-        let shuffledArray = shuffleArray('array')
-        expect(typeof shuffledArray).toBe('array')
+    test('check to see if length is the same after running the function', () => {
+        let arr = [1,2,3,4,5] 
+        let result = shuffleArray(arr)
+        expect(arr.length).toBe(result.length)
     })
 
-    test('should check thet it returns an array of the same length as the argument sent in', () => {
-        let arraySent = shuffleArray('array')
-        expect(typeof shuffleArray)
+    test('return array with the same items', () => {
+        //create array
+        //run through the function
+        //check to make sure all original values are included in the new array
+        
+        let arr = [1,2,3,4,5] 
+        let result = shuffleArray(arr)
+
+        let myVar = true
+
+        for(let i = 0; i < result.length; i++){
+            if(arr.includes(result[i]) === false){
+                myVar = false
+                return
+            }
+        }
+        expect(myVar).toBe(true)
     })
 })
 
