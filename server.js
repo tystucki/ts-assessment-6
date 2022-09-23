@@ -36,6 +36,7 @@ app.get('/api/robots', (req, res) => {
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
+        rollbar.error('Erro getting bots')
         res.sendStatus(400)
     }
 })
@@ -46,6 +47,8 @@ app.get('/api/robots/five', (req, res) => {
         let choices = shuffled.slice(0, 5)
         let compDuo = shuffled.slice(6, 8)
         res.status(200).send({choices, compDuo})
+        rollbar.log("Error getting the five bots")
+
     } catch (error) {
         console.log('ERROR GETTING FIVE BOTS', error)
         res.sendStatus(400)
@@ -72,13 +75,17 @@ app.post('/api/duel', (req, res) => {
         // comparing the total health to determine a winner
         if (compHealthAfterAttack > playerHealthAfterAttack) {
             playerRecord.losses++
+            rollbar.log('You lost the battle!')
             res.status(200).send('You lost!')
         } else {
+            rollbar.log('You won the battle!')
+
             playerRecord.losses++
             res.status(200).send('You won!')
         }
     } catch (error) {
         console.log('ERROR DUELING', error)
+        rollbar.error('Error in the Duel')
         res.sendStatus(400)
     }
 })
@@ -91,6 +98,8 @@ app.get('/api/player', (req, res) => {
         res.sendStatus(400)
     }
 })
+
+
 
 const port = process.env.PORT || 3000
 
