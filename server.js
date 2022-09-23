@@ -14,11 +14,13 @@ var rollbar = new Rollbar({
 
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
+rollbar.error('error not working')
 
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'))
+
 })
 app.get('/css', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.css'))
@@ -33,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/robots', (req, res) => {
     try {
+        rollbar.log('bots sent')
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)

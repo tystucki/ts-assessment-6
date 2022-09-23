@@ -18,9 +18,3 @@ test('Title shows up when page loads', async () => {
     const displayed = await title.isDisplayed()
     expect(displayed).toBe(true)
 })
-
-// test('Draw button displays the div with id= choices', async () => {
-//     const draw = await driver.findElement(By.id('draw'))
-//     const displayed = await draw.isDisplayed()
-//     expect(displayed).toBe(true)
-// })
